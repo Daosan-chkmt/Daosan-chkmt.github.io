@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico Digital — Drogarias Norfarma</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0d0f14;
+    --carbon: #141720;
+    --card: #1a1e2a;
+    --border: #252a38;
+    --red: #e8162c;
+    --red-glow: rgba(232,22,44,0.3);
+    --blue: #00c8ff;
+    --blue-glow: rgba(0,200,255,0.25);
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --warning: #ffaa00;
+    --success: #00e676;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,200,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,200,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding: 32px 0 28px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 16px;
+  }
+
+  .logo-check {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: #9aa0b0;
+    letter-spacing: 2px;
+  }
+
+  .logo-mate {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--red);
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px var(--red-glow);
+  }
+
+  .header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .empresa-nome {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 3px;
+    color: var(--blue);
+    text-shadow: 0 0 30px var(--blue-glow);
+    margin-bottom: 6px;
+  }
+
+  .header-date {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* SCORE HERO */
+  .score-hero {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    margin-bottom: 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .score-hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--red), rgba(232,22,44,0.1));
+  }
+
+  .score-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .score-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px;
+    color: var(--red);
+    text-shadow: 0 0 40px var(--red-glow);
+    line-height: 1;
+    margin-bottom: 8px;
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { text-shadow: 0 0 40px rgba(232,22,44,0.4); }
+    50% { text-shadow: 0 0 60px rgba(232,22,44,0.7); }
+  }
+
+  .score-bar-wrap {
+    background: var(--border);
+    border-radius: 4px;
+    height: 6px;
+    margin: 16px 0;
+    overflow: hidden;
+  }
+
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: var(--red);
+    width: 0%;
+    transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 0 10px var(--red-glow);
+  }
+
+  .score-desc {
+    font-size: 13px;
+    color: #b0b8cc;
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 24px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .section-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    background: var(--red);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: var(--text);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* GAP CARD */
+  .gap-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fade-in 0.4s forwards;
+  }
+
+  .gap-card:nth-child(1) { animation-delay: 0.1s; }
+  .gap-card:nth-child(2) { animation-delay: 0.2s; }
+  .gap-card:nth-child(3) { animation-delay: 0.3s; }
+  .gap-card:nth-child(4) { animation-delay: 0.4s; }
+  .gap-card:nth-child(5) { animation-delay: 0.5s; }
+
+  @keyframes fade-in {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .gap-card.critical {
+    border-left: 3px solid var(--red);
+  }
+
+  .gap-card.medium {
+    border-left: 3px solid var(--warning);
+  }
+
+  .gap-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+
+  .dot-critical { background: var(--red); box-shadow: 0 0 6px var(--red-glow); }
+  .dot-medium { background: var(--warning); box-shadow: 0 0 6px rgba(255,170,0,0.3); }
+
+  .gap-content { flex: 1; }
+
+  .gap-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .severity-badge {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+
+  .sev-critical {
+    background: rgba(232,22,44,0.15);
+    color: var(--red);
+    border: 1px solid rgba(232,22,44,0.3);
+  }
+
+  .sev-medium {
+    background: rgba(255,170,0,0.12);
+    color: var(--warning);
+    border: 1px solid rgba(255,170,0,0.25);
+  }
+
+  .gap-finding {
+    font-size: 12px;
+    color: #9aa0b0;
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+
+  .gap-finding strong {
+    color: #c8cdd8;
+  }
+
+  .gap-impact {
+    font-size: 11px;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* POSITIVE CARD */
+  .positive-card {
+    background: rgba(0,230,118,0.04);
+    border: 1px solid rgba(0,230,118,0.15);
+    border-left: 3px solid var(--success);
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fade-in 0.4s forwards;
+    animation-delay: 0.3s;
+  }
+
+  .positive-card .gap-title { color: var(--success); }
+  .positive-card .gap-finding { color: #7ab89a; }
+
+  /* SUMMARY BOX */
+  .summary-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px;
+    margin-bottom: 24px;
+  }
+
+  .summary-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .summary-item {
+    background: var(--black);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 14px;
+  }
+
+  .summary-item-label {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .summary-item-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+
+  .val-red { color: var(--red); }
+  .val-warning { color: var(--warning); }
+  .val-blue { color: var(--blue); }
+
+  /* CTA */
+  .cta-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    text-align: center;
+    margin-top: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-box::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, rgba(232,22,44,0.1), var(--red), rgba(232,22,44,0.1));
+  }
+
+  .cta-eyebrow {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .cta-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 2px;
+    color: var(--text);
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .cta-text {
+    font-size: 13px;
+    color: #9aa0b0;
+    line-height: 1.7;
+    margin-bottom: 22px;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-cta {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    padding: 14px 32px;
+    border-radius: 6px;
+    text-decoration: none;
+    box-shadow: 0 4px 20px var(--red-glow);
+    transition: all 0.2s;
+  }
+
+  .btn-cta:hover {
+    box-shadow: 0 6px 28px rgba(232,22,44,0.5);
+    transform: translateY(-1px);
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding-top: 32px;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    border-top: 1px solid var(--border);
+    margin-top: 32px;
+  }
+
+  .footer span { color: #4a5060; }
+
+  @media (max-width: 480px) {
+    .score-number { font-size: 64px; }
+    .summary-grid { grid-template-columns: 1fr; }
+    .empresa-nome { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">
+      <span class="logo-check">CHECK</span>
+      <span style="font-size:18px;margin:0 4px">♟</span>
+      <span class="logo-mate">MATE</span>
+    </div>
+    <div class="header-title">Diagnóstico de Presença Digital</div>
+    <div class="empresa-nome">Drogarias Norfarma</div>
+    <div class="header-date">Análise realizada em maio de 2026</div>
+  </div>
+
+  <!-- SCORE HERO -->
+  <div class="score-hero">
+    <div class="score-label">Índice de Maturidade Digital</div>
+    <div class="score-number" id="scoreNum">—</div>
+    <div class="score-bar-wrap">
+      <div class="score-bar-fill" id="scoreBar"></div>
+    </div>
+    <div class="score-desc">
+      A Norfarma tem presença digital ativa, mas opera com <strong style="color:#e8162c">3 gaps críticos</strong> que estão bloqueando conversões todos os dias — clientes chegam até vocês e saem sem comprar ou sem entrar em contato.
+    </div>
+  </div>
+
+  <!-- RESUMO NUMÉRICO -->
+  <div class="summary-box">
+    <div class="summary-title">Visão Geral — 3 Unidades Analisadas</div>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="summary-item-label">Seguidores Instagram</div>
+        <div class="summary-item-value val-warning">1.900</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-label">Engajamento Recente</div>
+        <div class="summary-item-value val-red">4 a 8 curtidas</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-label">Site + CTA WhatsApp</div>
+        <div class="summary-item-value val-red">Não configurado</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-label">Perfil Google otimizado</div>
+        <div class="summary-item-value val-red">0 de 3</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAPS CRÍTICOS -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-badge">GAP CRÍTICO</span>
+      <span class="section-title">O que está custando clientes agora</span>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="gap-card critical">
+      <div class="gap-dot dot-critical"></div>
+      <div class="gap-content">
+        <div class="gap-title">
+          Site fora do ar + posts sem CTA para WhatsApp
+          <span class="severity-badge sev-critical">Crítico</span>
+        </div>
+        <div class="gap-finding">
+          O site vinculado ao perfil leva a uma página fora do ar — quem clica não encontra nada. A bio tem o Linktree com os 3 WhatsApps, mas <strong>nenhuma postagem direciona o cliente para o contato</strong>. Quem vê o post não sabe o próximo passo.
+        </div>
+        <div class="gap-impact">
+          → Sem mensagem pré-configurada no link do WhatsApp, não há rastreio de onde o cliente veio e o atendimento começa do zero toda vez. Interesse que não vira conversa não vira venda.
+        </div>
+      </div>
+    </div>
+
+    <div class="gap-card critical">
+      <div class="gap-dot dot-critical"></div>
+      <div class="gap-content">
+        <div class="gap-title">
+          Perfil de pesquisa do Google sem otimização — 3 unidades
+          <span class="severity-badge sev-critical">Crítico</span>
+        </div>
+        <div class="gap-finding">
+          As três unidades aparecem com fotos apenas de street view automático, quase sem avaliações e sem informações completas. Perfis incompletos perdem posição no ranking local.
+        </div>
+        <div class="gap-impact">
+          → Quando alguém pesquisa "farmácia perto de mim", a Norfarma aparece abaixo de concorrentes com perfis ativos — mesmo tendo mais unidades.
+        </div>
+      </div>
+    </div>
+
+    <div class="gap-card critical">
+      <div class="gap-dot dot-critical"></div>
+      <div class="gap-content">
+        <div class="gap-title">
+          Alcance orgânico morto no Instagram
+          <span class="severity-badge sev-critical">Crítico</span>
+        </div>
+        <div class="gap-finding">
+          1.900 seguidores com posts recentes entre <strong>4 e 8 curtidas</strong>. Isso indica que o algoritmo parou de distribuir o conteúdo — resultado direto de publicação sem consistência e sem estratégia.
+        </div>
+        <div class="gap-impact">
+          → Com o alcance nesse nível, qualquer investimento futuro em anúncios começa em desvantagem. O histórico do perfil afeta o custo por resultado.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAPS MÉDIOS -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-badge" style="background:var(--warning);color:#0d0f14">ATENÇÃO</span>
+      <span class="section-title">Pontos que limitam o crescimento</span>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="gap-card medium">
+      <div class="gap-dot dot-medium"></div>
+      <div class="gap-content">
+        <div class="gap-title">
+          Conteúdo sem identidade visual padronizada
+          <span class="severity-badge sev-medium">Médio</span>
+        </div>
+        <div class="gap-finding">
+          Os posts alternam entre formatos diferentes sem um padrão visual reconhecível. Rede sem identidade não cria memória de marca.
+        </div>
+        <div class="gap-impact">
+          → Padronização visual é o que transforma um perfil de farmácia em uma marca de referência regional.
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <!-- POSITIVO -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-badge" style="background:var(--success);color:#0d0f14">BASE</span>
+      <span class="section-title">O que já existe para aproveitar</span>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="positive-card">
+      <div class="gap-dot" style="background:var(--success);margin-top:5px;flex-shrink:0"></div>
+      <div class="gap-content">
+        <div class="gap-title">Rede estabelecida com 3 unidades</div>
+        <div class="gap-finding">
+          Ter 3 pontos físicos é um ativo real no digital. Segmentação geográfica por unidade no Google e campanhas por bairro são estratégias que farmácias menores não conseguem executar. A Norfarma pode.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- O QUE SERIA FEITO -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-badge" style="background:var(--blue);color:#0d0f14">PROPOSTA</span>
+      <span class="section-title">O que a Checkmate resolve</span>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="summary-box" style="margin-bottom:0">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <span style="color:var(--blue);font-size:16px;margin-top:1px">01</span>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px">Site funcional + CTA direto para WhatsApp com mensagem pré-definida</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.5">Quem clica no perfil chega a algum lugar e já entra em contato com a unidade certa — sem precisar procurar número.</div>
+          </div>
+        </div>
+        <div style="height:1px;background:var(--border)"></div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <span style="color:var(--blue);font-size:16px;margin-top:1px">02</span>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px">Perfil de pesquisa do Google otimizado nas 3 unidades</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.5">Fotos reais, avaliações ativadas, informações completas — as 3 unidades aparecendo no topo quando alguém pesquisar farmácia na região.</div>
+          </div>
+        </div>
+        <div style="height:1px;background:var(--border)"></div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <span style="color:var(--blue);font-size:16px;margin-top:1px">03</span>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px">Conteúdo semanal com identidade e estratégia</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.5">Posts com visual padronizado, foco em dermocosméticos e produtos de maior margem, CTA direcionando para WhatsApp de cada unidade. Base pronta para tráfego pago quando quiser escalar.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-box">
+    <div class="cta-eyebrow">Próximo passo</div>
+    <div class="cta-headline">15 minutos para alinhar o que faz sentido pra vocês</div>
+    <div class="cta-text">
+      Sem apresentação longa. A análise já foi feita — o que falta é entender qual parte resolve primeiro e como encaixar na operação de vocês.
+    </div>
+    <a href="https://wa.me/5581993210841?text=Oi%20Daniel%2C%20vi%20o%20diagn%C3%B3stico%20da%20Norfarma%20e%20quero%20conversar." class="btn-cta">
+      📲 FALAR COM A CHECKMATE
+    </a>
+  </div>
+
+  <div class="footer">
+    <span>CHECK♟MATE</span> · Carpina, PE · Tráfego Pago & Automação<br>
+    @checkmatecarpina
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      document.getElementById('scoreNum').textContent = '28%';
+      document.getElementById('scoreBar').style.width = '28%';
+    }, 400);
+  });
+</script>
+</body>
+</html>
